@@ -1,7 +1,10 @@
-interface SignUp {
-    name: string;
+interface Login {
     email: string;
     password: string;
 }
 
-export { SignUp };
+interface SignUp extends Login {
+    name: string;
+}
+
+export { SignUp, Login };
