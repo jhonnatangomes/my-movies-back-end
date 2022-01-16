@@ -6,3 +6,4 @@ dist
 .env.test
 .env
 .eslintignore
+.env.development
