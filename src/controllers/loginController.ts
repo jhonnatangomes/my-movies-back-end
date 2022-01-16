@@ -41,7 +41,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
             return res.status(400).send(loginValidation.message);
         }
         const token = await sessionService.login(req.body);
-        return res.send(token);
+        return res.send({ token });
     } catch (error) {
         if (error.type === 'NotFound') {
             return res.status(404).send(error.message);

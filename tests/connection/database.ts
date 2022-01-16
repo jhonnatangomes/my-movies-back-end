@@ -7,17 +7,17 @@ async function deleteTables() {
     await getConnection()
         .createQueryBuilder()
         .delete()
-        .from(UserEntity)
-        .execute();
-    await getConnection()
-        .createQueryBuilder()
-        .delete()
         .from(SessionEntity)
         .execute();
     await getConnection()
         .createQueryBuilder()
         .delete()
         .from(FavoriteEntity)
+        .execute();
+    await getConnection()
+        .createQueryBuilder()
+        .delete()
+        .from(UserEntity)
         .execute();
 }
 

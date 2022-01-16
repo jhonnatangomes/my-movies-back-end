@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable indent */
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -13,5 +14,5 @@ export default class UserEntity {
     email: string;
 
     @Column()
-    private password: string;
+    password: string;
 }
