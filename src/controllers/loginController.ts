@@ -50,4 +50,26 @@ async function login(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export { signUp, login };
+async function logout(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { token } = req.body;
+
+        if (!token) {
+            return res.status(400).send('token is required');
+        }
+
+        if (typeof token !== 'string') {
+            return res.status(400).send('token needs to be a string');
+        }
+
+        await sessionService.logout(token);
+        return res.send('succesfully logged out');
+    } catch (error) {
+        if (error.type === 'NotFound') {
+            return res.status(404).send(error.message);
+        }
+        return next(error);
+    }
+}
+
+export { signUp, login, logout };

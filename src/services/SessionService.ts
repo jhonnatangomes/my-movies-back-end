@@ -39,4 +39,13 @@ export default class SessionService extends BaseService {
         await super.getEntity().save(session);
         return token;
     }
+
+    async logout(token: string) {
+        const userByToken = await super.getEntity().findOne({ token });
+        if (!userByToken) {
+            throw new APIError('user is not logged in', 'NotFound');
+        }
+
+        await super.getEntity().delete({ token });
+    }
 }
