@@ -8,7 +8,9 @@
     "build": "npx tsc --outDir dist",
     "typeorm": "ts-node ./node_modules/typeorm/cli",
     "migration:generate": "npm run build && npm run typeorm migration:generate -- -n",
-    "migration:run": "npm run build && npm run typeorm migration:run"
+    "migration:run": "npm run build && npm run typeorm migration:run",
+    "test:watch": "npx jest --watch --i",
+    "test": "npx jest --i"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +28,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^6.0.0-alpha.3",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
