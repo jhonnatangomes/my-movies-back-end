@@ -1,6 +1,8 @@
 import supertest from 'supertest';
 import app, { init } from '../../src/app';
 import { deleteTables, endConnection } from '../connection/database';
+import numberFactory from '../factories/numberFactory';
+import { createSession, getSessionByToken } from '../factories/sessionFactory';
 import {
     getSession,
     incorrectSignInFactory,
@@ -92,5 +94,43 @@ describe('post /sign-in', () => {
         const session = await getSession(body.email.toString());
         expect(result.status).toEqual(200);
         expect(result.body.token).toEqual(session.token);
+    });
+});
+
+describe('post /logout', () => {
+    let token: string;
+
+    beforeAll(async () => {
+        await deleteTables();
+    });
+
+    it('returns 400 when no token is sent', async () => {
+        const result = await agent.post('/logout');
+        expect(result.status).toEqual(400);
+    });
+
+    it('returns 400 when a non-string token is sent', async () => {
+        const body = {
+            token: numberFactory(),
+        };
+        const result = await agent.post('/logout').send(body);
+        expect(result.status).toEqual(400);
+    });
+
+    it('returns 404 when a non-existent token is sent', async () => {
+        const body = {
+            token: stringFactory(),
+        };
+        const result = await agent.post('/logout').send(body);
+        expect(result.status).toEqual(404);
+    });
+
+    it('returns 200 and logs out the user when an existent token is passed', async () => {
+        token = await createSession();
+        const body = { token };
+        const result = await agent.post('/logout').send(body);
+        const session = await getSessionByToken(token);
+        expect(result.status).toEqual(200);
+        expect(session).toEqual(undefined);
     });
 });
