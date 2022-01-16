@@ -15,7 +15,7 @@ export const setupRoute = (app: Express): void => {
         console.log(
             'All routes: ',
             router.stack.map((r) => ({
-                path: `/${r.route.path}`,
+                path: `${r.route.path}`,
                 method: r.route.methods,
             }))
         );
