@@ -2,3 +2,7 @@ node_modules
 .eslintrc.json
 .husky
 .lintstagedrc.json
+dist
+.env.test
+.env
+.eslintignore
